@@ -67,20 +67,32 @@ class Header extends React.Component {
     }
 }
 
-class Action extends React.Component {
-    render() {
-        return (
-            <div>
-                <button 
-                    onClick={this.props.handlePick}
-                    disabled = {!this.props.hasOption}
-                >
-                What should I do ?
-                </button>
-            </div>
-        )
-    }
-}
+const Action = (props) => {
+    return (
+        <div>
+            <button 
+                onClick={props.handlePick}
+                disabled = {!props.hasOption}
+            >
+            What should I do ?
+            </button>
+        </div>
+    )
+};
+// class Action extends React.Component {
+//     render() {
+//         return (
+//             <div>
+//                 <button 
+//                     onClick={this.props.handlePick}
+//                     disabled = {!this.props.hasOption}
+//                 >
+//                 What should I do ?
+//                 </button>
+//             </div>
+//         )
+//     }
+// }
 
 // setup  options prop for Options component
 // render the length of the array
@@ -139,6 +151,13 @@ class AddOption extends React.Component {
     }
 }
 
-
+// const User = (props) => {
+//     return (
+//         <div>
+//             <p>Name: {props.name}</p>
+//             <p>Age: {props.age}</p>
+//         </div>
+//     );
+// };
 
 ReactDOM.render(<IndecisionApp />, document.getElementById('app'))
