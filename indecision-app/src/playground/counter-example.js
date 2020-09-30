@@ -1,3 +1,4 @@
+// count - setup default value to 0
 class Counter extends React.Component {
     constructor(props) {
         super(props);
@@ -7,6 +8,24 @@ class Counter extends React.Component {
         this.state = {
             count : 0
         };
+    }
+    componentDidMount() {
+        try{
+            const stringCount = localStorage.getItem('count');
+            const count = parseInt(stringCount, 10);
+            if(!isNaN(count)) {
+                this.setState(() => ({count}));
+            }
+        } catch(e) {
+            // do nothing
+        }
+        
+    }
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.count!== this.state.count) {
+            const json = JSON.stringify(this.state.count);
+            localStorage.setItem('count', json);
+        }
     }
     handleAddOne() {
         this.setState((prevState) => {
@@ -23,7 +42,11 @@ class Counter extends React.Component {
         });
     }
     handleReset() {
-        console.log('handleReset');
+        this.setState(() => {
+            return {
+                count: 0
+            };
+        });
     }
     render() {
         return (
@@ -36,8 +59,7 @@ class Counter extends React.Component {
         );
     }
 }
-
-ReactDOM.render(<Counter />, document.getElementById('app'));
+ReactDOM.render(<Counter count={10}/>, document.getElementById('app'));
 // let count = 0;
 // const addOne = () => {
 //     count ++;
